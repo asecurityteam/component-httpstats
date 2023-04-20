@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/asecurityteam/httpstats v0.0.0-20211027173738-4a1cfc686f5b
+	github.com/asecurityteam/httpstats/v2 v2.3.0
 	github.com/asecurityteam/settings v0.7.0
 	github.com/stretchr/testify v1.7.0
 )
