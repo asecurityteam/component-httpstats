@@ -3,10 +3,13 @@ package httpstats
 import (
 	"context"
 	"net/http"
+	"net/url"
 	"reflect"
 	"testing"
+	"time"
 
 	"github.com/asecurityteam/settings"
+	"github.com/rs/xstats"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -67,6 +70,57 @@ func TestMetricsComponentNewStaticPath(t *testing.T) {
 	}
 }
 
+func TestMetricsComponentNonStaticPath(t *testing.T) {
+	cmp := NewComponent()
+	conf := cmp.Settings()
+	conf.Backend = "testdependency"
+	wrapper, err := cmp.New(context.Background(), conf)
+	assert.Nil(t, err)
+	assert.IsType(t, wrapper, func(next http.RoundTripper) http.RoundTripper { return nil }, wrapper)
+
+	tr := wrapper(http.DefaultTransport)
+
+	request := http.Request{URL: &url.URL{Path: `/some/random/path`}}
+
+	xStater := XStater{}
+	xStaterContext := xstats.NewContext(context.Background(), &xStater)
+
+	request = *request.WithContext(xStaterContext)
+
+	_, _ = tr.RoundTrip(&request)
+
+	expectedTags := []string{
+		"client_path:/some/random/path",
+		"client_dependency:testdependency",
+		"method:",
+		"status_code:502",
+		"status:error",
+	}
+
+	assert.Equal(t, len(expectedTags), len(xStater.TimingTags))
+
+	for i := 0; i < len(expectedTags); i++ {
+		assert.Contains(t, expectedTags, xStater.TimingTags[i])
+	}
+}
+
+func TestMetricsComponentNewStaticPathOmitPath(t *testing.T) {
+	cmp := NewComponent()
+	conf := cmp.Settings()
+	conf.Backend = "testdependency"
+	conf.Path = "/foo"
+	conf.OmitPathTag = true
+	wrapper, err := cmp.New(context.Background(), conf)
+	assert.Nil(t, err)
+	assert.IsType(t, wrapper, func(next http.RoundTripper) http.RoundTripper { return nil }, wrapper)
+
+	tr := wrapper(http.DefaultTransport)
+	tags := reflect.Indirect(reflect.ValueOf(tr)).FieldByName("tags")
+	for i := 0; i < tags.Len(); i++ {
+		assert.Contains(t, []string{"client_dependency:testdependency"}, tags.Index(i).String())
+	}
+}
+
 func TestMetricsComponentNewNoPathGiven(t *testing.T) {
 	cmp := NewComponent()
 	conf := cmp.Settings()
@@ -78,3 +132,19 @@ func TestMetricsComponentNewNoPathGiven(t *testing.T) {
 	tr := wrapper(http.DefaultTransport)
 	assert.Equal(t, 1, reflect.Indirect(reflect.ValueOf(tr)).FieldByName("requestTaggers").Len())
 }
+
+// XStater a rudimentary recorder of emitted stats things.  Add recordings for the stat name and values if you need them
+type XStater struct {
+	AddTagsTags   []string
+	CountTags     []string
+	GaugeTags     []string
+	HistogramTags []string
+	TimingTags    []string
+}
+
+func (x *XStater) AddTags(tags ...string)                                  { x.AddTagsTags = tags }
+func (x *XStater) GetTags() []string                                       { return x.AddTagsTags }
+func (x *XStater) Gauge(stat string, value float64, tags ...string)        { x.GaugeTags = tags }
+func (x *XStater) Count(stat string, count float64, tags ...string)        { x.CountTags = tags }
+func (x *XStater) Histogram(stat string, value float64, tags ...string)    { x.HistogramTags = tags }
+func (x *XStater) Timing(stat string, value time.Duration, tags ...string) { x.TimingTags = tags }
