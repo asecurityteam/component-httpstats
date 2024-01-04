@@ -2,6 +2,7 @@ package httpstats
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"net/url"
 	"reflect"
@@ -11,6 +12,10 @@ import (
 	"github.com/asecurityteam/settings"
 	"github.com/rs/xstats"
 	"github.com/stretchr/testify/assert"
+)
+
+const (
+	testdependency = "testdependency"
 )
 
 func TestMetricsConfigName(t *testing.T) {
@@ -31,7 +36,7 @@ func TestMetricsComponentNew(t *testing.T) {
 func TestNew(t *testing.T) {
 	src := settings.NewMapSource(map[string]interface{}{
 		"metrics": map[string]interface{}{
-			"backend": "testdependency",
+			"backend": testdependency,
 		},
 	})
 	wrapper, err := New(context.Background(), src)
@@ -40,7 +45,7 @@ func TestNew(t *testing.T) {
 
 	tr := wrapper(http.DefaultTransport)
 	assert.Equal(
-		t, "client_dependency:testdependency",
+		t, fmt.Sprintf("client_dependency:%s", testdependency),
 		reflect.Indirect(reflect.ValueOf(tr)).FieldByName("tags").Index(0).String(),
 	)
 }
@@ -57,7 +62,7 @@ func TestMetricsComponentNewNoDependencyError(t *testing.T) {
 func TestMetricsComponentNewStaticPath(t *testing.T) {
 	cmp := NewComponent()
 	conf := cmp.Settings()
-	conf.Backend = "testdependency"
+	conf.Backend = testdependency
 	conf.Path = "/foo"
 	wrapper, err := cmp.New(context.Background(), conf)
 	assert.Nil(t, err)
@@ -66,14 +71,14 @@ func TestMetricsComponentNewStaticPath(t *testing.T) {
 	tr := wrapper(http.DefaultTransport)
 	tags := reflect.Indirect(reflect.ValueOf(tr)).FieldByName("tags")
 	for i := 0; i < tags.Len(); i++ {
-		assert.Contains(t, []string{"client_dependency:testdependency", "client_path:/foo"}, tags.Index(i).String())
+		assert.Contains(t, []string{fmt.Sprintf("client_dependency:%s", testdependency), "client_path:/foo"}, tags.Index(i).String())
 	}
 }
 
 func TestMetricsComponentNonStaticPath(t *testing.T) {
 	cmp := NewComponent()
 	conf := cmp.Settings()
-	conf.Backend = "testdependency"
+	conf.Backend = testdependency
 	wrapper, err := cmp.New(context.Background(), conf)
 	assert.Nil(t, err)
 	assert.IsType(t, wrapper, func(next http.RoundTripper) http.RoundTripper { return nil }, wrapper)
@@ -91,7 +96,7 @@ func TestMetricsComponentNonStaticPath(t *testing.T) {
 
 	expectedTags := []string{
 		"client_path:/some/random/path",
-		"client_dependency:testdependency",
+		fmt.Sprintf("client_dependency:%s", testdependency),
 		"method:",
 		"status_code:502",
 		"status:error",
@@ -107,7 +112,7 @@ func TestMetricsComponentNonStaticPath(t *testing.T) {
 func TestMetricsComponentNewStaticPathOmitPath(t *testing.T) {
 	cmp := NewComponent()
 	conf := cmp.Settings()
-	conf.Backend = "testdependency"
+	conf.Backend = testdependency
 	conf.Path = "/foo"
 	conf.OmitPathTag = true
 	wrapper, err := cmp.New(context.Background(), conf)
@@ -117,14 +122,14 @@ func TestMetricsComponentNewStaticPathOmitPath(t *testing.T) {
 	tr := wrapper(http.DefaultTransport)
 	tags := reflect.Indirect(reflect.ValueOf(tr)).FieldByName("tags")
 	for i := 0; i < tags.Len(); i++ {
-		assert.Contains(t, []string{"client_dependency:testdependency"}, tags.Index(i).String())
+		assert.Contains(t, []string{fmt.Sprintf("client_dependency:%s", testdependency)}, tags.Index(i).String())
 	}
 }
 
 func TestMetricsComponentNewNoPathGiven(t *testing.T) {
 	cmp := NewComponent()
 	conf := cmp.Settings()
-	conf.Backend = "testdependency"
+	conf.Backend = testdependency
 	wrapper, err := cmp.New(context.Background(), conf)
 	assert.Nil(t, err)
 	assert.IsType(t, wrapper, func(next http.RoundTripper) http.RoundTripper { return nil }, wrapper)
