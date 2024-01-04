@@ -24,8 +24,9 @@ type MetricsConfig struct {
 	PutIdle           string `description:"Name of idle connection return count metric."`
 	BackendTag        string `description:"Name of the tag containing the backend reference."`
 	PathTag           string `description:"Name of the tag containing the path reference."`
-	Backend           string `description:"Static value for the backend metric."`
-	Path              string `description:"Static value for the path metric. If not specified, will be generated for each request."`
+	Backend           string `description:"Static value for the backend tag metric."`
+	Path              string `description:"Static value for the path tag metric. If not specified, will be generated for each request."`
+	OmitPathTag       bool   `description:"Boolean to omit path tag metric.  Omitting the path tag may be desirable to avoid cardinality explosions for paths that vary greatly."`
 }
 
 // Name of the config root.
@@ -59,6 +60,7 @@ func (*MetricsComponent) Settings() *MetricsConfig {
 		PathTag:           "client_path",
 		Backend:           "",
 		Path:              "",
+		OmitPathTag:       false,
 	}
 }
 
@@ -93,12 +95,14 @@ func (c *MetricsComponent) New(_ context.Context, conf *MetricsConfig) (func(htt
 		statstransport.TransportOptionTag(conf.BackendTag, conf.Backend),
 	}
 
-	if conf.Path == "" {
-		options = append(options, statstransport.TransportOptionRequestTag(func(r *http.Request) (string, string) {
-			return conf.PathTag, r.URL.EscapedPath()
-		}))
-	} else {
-		options = append(options, statstransport.TransportOptionTag(conf.PathTag, conf.Path))
+	if !conf.OmitPathTag {
+		if conf.Path == "" {
+			options = append(options, statstransport.TransportOptionRequestTag(func(r *http.Request) (string, string) {
+				return conf.PathTag, r.URL.EscapedPath()
+			}))
+		} else {
+			options = append(options, statstransport.TransportOptionTag(conf.PathTag, conf.Path))
+		}
 	}
 
 	return statstransport.NewTransport(options...), nil
