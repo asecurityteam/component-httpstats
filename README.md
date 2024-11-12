@@ -1,8 +1,6 @@
 <a id="markdown-component-httpstats---settings-component-for-generating-an-http-stat-client" name="component-httpstats---settings-component-for-generating-an-http-stat-client"></a>
 # component-httpstats - Settings component for generating an HTTP stat client
 [![GoDoc](https://godoc.org/github.com/asecurityteam/component-httpstats?status.svg)](https://godoc.org/github.com/asecurityteam/component-httpstats)
-[![Build Status](https://travis-ci.com/asecurityteam/component-httpstats.png?branch=master)](https://travis-ci.com/asecurityteam/component-httpstats)
-[![codecov.io](https://codecov.io/github/asecurityteam/component-httpstats/coverage.svg?branch=master)](https://codecov.io/github/asecurityteam/component-httpstats?branch=master)
 <!-- TOC -->
 
 - [component-httpstats - Settings component for generating an http stat client](#component-httpstats---settings-component-for-generating-an-http-stat-client)
