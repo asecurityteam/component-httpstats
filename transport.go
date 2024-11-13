@@ -5,8 +5,8 @@ import (
 	"errors"
 	"net/http"
 
-	statstransport "github.com/asecurityteam/httpstats"
-	"github.com/asecurityteam/settings"
+	statstransport "github.com/asecurityteam/httpstats/v2"
+	"github.com/asecurityteam/settings/v2"
 )
 
 // MetricsConfig contains settings for request metrics emissions.

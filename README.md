@@ -1,20 +1,7 @@
-<a id="markdown-component-httpstats---settings-component-for-generating-an-http-stat-client" name="component-httpstats---settings-component-for-generating-an-http-stat-client"></a>
 # component-httpstats - Settings component for generating an HTTP stat client
 [![GoDoc](https://godoc.org/github.com/asecurityteam/component-httpstats?status.svg)](https://godoc.org/github.com/asecurityteam/component-httpstats)
-<!-- TOC -->
+<!-- TOC -->autoauto- [component-httpstats - Settings component for generating an HTTP stat client](#component-httpstats---settings-component-for-generating-an-http-stat-client)auto    - [Overview](#overview)auto    - [Quick Start](#quick-start)auto    - [Status](#status)auto    - [Contributing](#contributing)auto        - [Building And Testing](#building-and-testing)auto        - [License](#license)auto        - [Contributing Agreement](#contributing-agreement)autoauto<!-- /TOC -->
 
-- [component-httpstats - Settings component for generating an http stat client](#component-httpstats---settings-component-for-generating-an-http-stat-client)
-    - [Overview](#overview)
-    - [Quick Start](#quick-start)
-    - [Status](#status)
-    - [Contributing](#contributing)
-        - [Building And Testing](#building-and-testing)
-        - [License](#license)
-        - [Contributing Agreement](#contributing-agreement)
-
-<!-- /TOC -->
-
-<a id="markdown-overview" name="overview"></a>
 ## Overview
 
 This is a [`settings`](https://github.com/asecurityteam/settings) that
@@ -23,7 +10,6 @@ metrics with configurable names on every request. The resulting client
 is powered by [`xstats`](https://github.com/rs/xstats) and
 [`httpstats`](https://github.com/asecurityteam/httpstats).
 
-<a id="markdown-quick-start" name="quick-start"></a>
 ## Quick Start
 
 ```golang
@@ -36,7 +22,7 @@ import (
 
     "github.com/asecurityteam/component-httpstats"
     "github.com/asecurityteam/transport"
-    "github.com/asecurityteam/settings"
+    "github.com/asecurityteam/settings/v2"
 )
 
 func main() {
@@ -60,16 +46,13 @@ func main() {
 }
 ```
 
-<a id="markdown-status" name="status"></a>
 ## Status
 
 This project is in incubation which means we are not yet operating this
 tool in production and the interfaces are subject to change.
 
-<a id="markdown-contributing" name="contributing"></a>
 ## Contributing
 
-<a id="markdown-building-and-testing" name="building-and-testing"></a>
 ### Building And Testing
 
 We publish a docker image called
@@ -98,12 +81,10 @@ through the Makefile:
 
     Report the combined coverage for unit and integration tests
 
-<a id="markdown-license" name="license"></a>
 ### License
 
 This project is licensed under Apache 2.0. See LICENSE.txt for details.
 
-<a id="markdown-contributing-agreement" name="contributing-agreement"></a>
 ### Contributing Agreement
 
 Atlassian requires signing a contributor's agreement before we can accept a patch. If
