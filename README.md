@@ -1,5 +1,20 @@
 # component-httpstats - Settings component for generating an HTTP stat client
 [![GoDoc](https://godoc.org/github.com/asecurityteam/component-httpstats?status.svg)](https://godoc.org/github.com/asecurityteam/component-httpstats)
+
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=asecurityteam_component-httpstats&metric=bugs)](https://sonarcloud.io/dashboard?id=asecurityteam_component-httpstats)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=asecurityteam_component-httpstats&metric=code_smells)](https://sonarcloud.io/dashboard?id=asecurityteam_component-httpstats)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=asecurityteam_component-httpstats&metric=coverage)](https://sonarcloud.io/dashboard?id=asecurityteam_component-httpstats)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=asecurityteam_component-httpstats&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=asecurityteam_component-httpstats)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=asecurityteam_component-httpstats&metric=ncloc)](https://sonarcloud.io/dashboard?id=asecurityteam_component-httpstats)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=asecurityteam_component-httpstats&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=asecurityteam_component-httpstats)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=asecurityteam_component-httpstats&metric=alert_status)](https://sonarcloud.io/dashboard?id=asecurityteam_component-httpstats)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=asecurityteam_component-httpstats&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=asecurityteam_component-httpstats)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=asecurityteam_component-httpstats&metric=security_rating)](https://sonarcloud.io/dashboard?id=asecurityteam_component-httpstats)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=asecurityteam_component-httpstats&metric=sqale_index)](https://sonarcloud.io/dashboard?id=asecurityteam_component-httpstats)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=asecurityteam_component-httpstats&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=asecurityteam_component-httpstats)
+
+
+
 <!-- TOC -->autoauto- [component-httpstats - Settings component for generating an HTTP stat client](#component-httpstats---settings-component-for-generating-an-http-stat-client)auto    - [Overview](#overview)auto    - [Quick Start](#quick-start)auto    - [Status](#status)auto    - [Contributing](#contributing)auto        - [Building And Testing](#building-and-testing)auto        - [License](#license)auto        - [Contributing Agreement](#contributing-agreement)autoauto<!-- /TOC -->
 
 ## Overview
