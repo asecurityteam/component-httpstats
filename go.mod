@@ -2,10 +2,10 @@ module github.com/asecurityteam/component-httpstats
 
 go 1.22
 
-toolchain go1.24.3
+toolchain go1.24.4
 
 require (
-	github.com/asecurityteam/httpstats/v2 v2.4.1
+	github.com/asecurityteam/httpstats/v2 v2.4.2
 	github.com/asecurityteam/settings/v2 v2.0.3
 	github.com/rs/xstats v0.0.0-20170813190920-c67367528e16
 	github.com/stretchr/testify v1.10.0
