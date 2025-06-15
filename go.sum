@@ -1,7 +1,7 @@
 github.com/andreyvit/diff v0.0.0-20170406064948-c7f18ee00883 h1:bvNMNQO63//z+xNgfBlViaCIJKLlCJ6/fmUseuG0wVQ=
 github.com/andreyvit/diff v0.0.0-20170406064948-c7f18ee00883/go.mod h1:rCTlJbsFo29Kk6CurOXKm700vrz8f0KW0JNfpkRJY/8=
-github.com/asecurityteam/httpstats/v2 v2.4.1 h1:392IjcQKwDq+XCshjRA5/xFqgR8wpNWZd158wDuA2dI=
-github.com/asecurityteam/httpstats/v2 v2.4.1/go.mod h1:qDcW7VZPwlQi1d3winwFXkGxV3n6prEadtMMrFVJ8Yg=
+github.com/asecurityteam/httpstats/v2 v2.4.2 h1:KiqR62F6hOOjYWDQuR1+d5hhLp7c6KoubJJeUZz5XNM=
+github.com/asecurityteam/httpstats/v2 v2.4.2/go.mod h1:qDcW7VZPwlQi1d3winwFXkGxV3n6prEadtMMrFVJ8Yg=
 github.com/asecurityteam/settings/v2 v2.0.3 h1:dYdghLR/4RvB6PRXZQAB3phz5yj5JMAz9uZ8Y4StxAA=
 github.com/asecurityteam/settings/v2 v2.0.3/go.mod h1:Qa/2EIsIvqNv5xD9xrmea7mLo+7+ZFbKpJWB7HPjfwM=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
