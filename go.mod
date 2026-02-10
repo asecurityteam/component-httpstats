@@ -1,8 +1,6 @@
 module github.com/asecurityteam/component-httpstats
 
-go 1.22
-
-toolchain go1.24.4
+go 1.26.0
 
 require (
 	github.com/asecurityteam/httpstats/v2 v2.4.2
